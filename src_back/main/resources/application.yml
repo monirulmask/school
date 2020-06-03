@@ -1,0 +1,41 @@
+spring:
+  main:
+    banner-mode: "off"
+  profiles:
+    active:
+      - local
+      - swagger
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+      cache: true
+      compressed: true
+    cache:
+      period: 86400
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_SCHEMA}?${DB_OPTION}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    validation-query: SELECT 1
+    test-on-borrow: true
+    test-while-idle: true
+    min-evictable-idle-time-millis: 60000
+    time-between-eviction-runs-millis: 60000
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      pool-name: ConnectionPool
+      leak-detection-threshold: 60000
+      connection-test-query: SELECT 1
+      minimum-idle: 5
+      maximum-pool-size: 10
+      auto-commit: false
+logging:
+  level:
+    root: info
+    thanks_card: debug
+doma:
+  dialect: mssql
